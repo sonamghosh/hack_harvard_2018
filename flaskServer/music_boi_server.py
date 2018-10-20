@@ -12,15 +12,9 @@ def hello_world():
     return 'Hello, World!'
 
 #Receive string from HTTP POST and return midi
-@app.route('/getString', methods=['POST'])
-def getString():
+@app.route('/submitString', methods=['POST'])
+def submitString():
     text = request.form['text']
     #emotion = emotion_analyzer(text)
     #midi = music_boi(emotion)
     return text
-
-@app.route('/testing', methods=['POST'])
-def testing():
-    test = request.form['test']
-    print(test)
-    return "gotem"
