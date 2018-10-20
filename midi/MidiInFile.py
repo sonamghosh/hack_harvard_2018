@@ -44,8 +44,6 @@ class MidiInFile:
     def read(self):
         "Start parsing the file"
         p = self.parser
-        print('*****************')
-        print(p)
         p.parseMThdChunk()
         p.parseMTrkChunks()
 

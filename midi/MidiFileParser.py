@@ -39,16 +39,13 @@ class MidiFileParser:
         "Parses the header chunk"
         
         raw_in = self.raw_in
-        print('************ weeeeoweeooo')
-        print(raw_in)
+
         header_chunk_type = raw_in.nextSlice(4)
         header_chunk_zise = raw_in.readBew(4)
 
         # check if it is a proper midi file
-        if header_chunk_type != 'MThd':
-            print("It is not a valid midi file!")
-            raise TypeError
-
+        if header_chunk_type != b'MThd':
+            raise TypeError("It is not a valid midi file!")
 
         # Header values are at fixed locations, so no reason to be clever
         self.format = raw_in.readBew(2)

@@ -131,8 +131,8 @@ class EventDispatcher:
             stream.pitch_bend(channel, value)
 
         else:
-            print('Illegal channel msg!')
-            raise ValueError
+
+            raise ValueError('Illegal channel message!')
 
 
 
