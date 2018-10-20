@@ -1,7 +1,7 @@
 #Imports
 from flask import Flask, request
-from text_emotion_analyzer.py import emotion_analyzer
-from music_boi.py import music_boi
+#from text_emotion_analyzer.py import emotion_analyzer
+#from music_boi.py import music_boi
 
 #Set app for Flask
 app = Flask(__name__)
@@ -15,8 +15,8 @@ def hello_world():
 @app.route('/getString', methods=['POST'])
 def getString():
     text = request.form['text']
-    emotion = emotion_analyzer(text)
-    midi = music_boi(emotion)
+    #emotion = emotion_analyzer(text)
+    #midi = music_boi(emotion)
     return text
 
 @app.route('/testing', methods=['POST'])
