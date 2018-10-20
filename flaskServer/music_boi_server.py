@@ -18,3 +18,9 @@ def getString():
     emotion = emotion_analyzer(text)
     midi = music_boi(emotion)
     return text
+
+@app.route('/testing', methods=['POST'])
+def testing():
+    test = request.form['test']
+    print(test)
+    return "gotem"
