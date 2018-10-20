@@ -1,10 +1,10 @@
 import os
 import sys
 import random
+import shutil
 import pdb
 
 # This Script handles creating Training, Test, and Validation datasets
-
 
 # List files in directory
 def fn(genre, emotion):
@@ -29,7 +29,6 @@ def extract_files(genre, num_files=50):
 	# Error Checker
 	if any(len(lst) < num_files for lst in [happy_list, sad_list, neutral_list]):
 		raise ValueError('There must be atleast ' + str(num_files) + ' files in each of the emotion datasets')
-
 
 	# Sample through and pick N number of files
 	happy_list = random.sample(happy_list, num_files)
@@ -57,7 +56,19 @@ def create_dataset(data, train_split=0.8, test_split=0.2):
 	return train_set, val_set, test_set
 
 
+# Save files into their respective directory
+def save_dataset(train_set, val_set, test_set, genre, emotion):
+	path = './data/'+genre+'/'+emotion+'/'
+	test_path = './data/'+genre+ '/'+emotion.lower()+'_test/'
+	train_path = './data/'+genre+'/'+emotion.lower()+'_train/'
+	val_path = './data/'+genre+'/'+emotion.lower()+'_val/'
 
+	for f in train_set:
+		shutil.copy(path+f, train_path)
+	for f in test_set:
+		shutil.copy(path+f, test_path)
+	for f in val_set:
+		shutil.copy(path+f, val_path)
 
 
 
@@ -68,10 +79,7 @@ def create_dataset(data, train_split=0.8, test_split=0.2):
 # Test
 if __name__ == "__main__":
 	a = fn('Anime', 'Happy')
-	b, c, d = extract_files('Anime', 50)
-	print(b)
-	tr, val, te = create_dataset(b)
-	print(len(tr))
-	print(len(val))
-	print(len(te))
+	b, c, d = extract_files('Anime')
+	tr, va, te = create_dataset(b)  # Happy
+	save_dataset(tr, va, te, 'Anime', 'Happy')
 
