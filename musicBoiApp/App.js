@@ -32,7 +32,7 @@ export default class App extends React.Component {
       >
         <KeyboardAvoidingView style={styles.container} behavior="padding" enabled>
           <StatusBar hidden/>
-          <Image source={{uri: 'https://raw.githubusercontent.com/sonamghosh/hack_harvard_2018/FlaskServer/musicBoiLogo/musicBoiLogo4.png'}}
+          <Image source={{uri: 'https://raw.githubusercontent.com/sonamghosh/hack_harvard_2018/FlaskServer/musicBoiLogo/musicBoiLogo3.png'}}
                 style={{width: 139, height: 85}}/>
           <Text>Transform words into music</Text>
           <TextInput
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     margin: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    
+
     opacity: 0.8,
     borderColor: 'skyblue',
     borderWidth: 0.5,
