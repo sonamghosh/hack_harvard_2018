@@ -71,7 +71,25 @@ def save_dataset(train_set, val_set, test_set, genre, emotion):
 		shutil.copy(path+f, val_path)
 
 
+# Delete files in Train, Val, Test
+def delete_dataset(genre, emotion):
+	train_path = './data/'+genre+'/'+emotion.lower()+'_train/'
+	test_path = './data/'+genre+'/'+emotion.lower()+'_test/'
+	val_path = './data/'+genre+'/'+emotion.lower()+'_val/'
 
+	train_list = os.listdir(train_path)
+	test_list = os.listdir(test_path)
+	val_list = os.listdir(val_path)
+
+	for filename in train_list:
+		if filename.endswith('.mid'):
+			os.unlink(train_path+filename)
+	for filename in test_list:
+		if filename.endswith('.mid'):
+			os.unlink(test_path+filename)
+	for filename in val_list:
+		if filename.endswith('.mid'):
+			os.unlink(val_path+filename)
 
 
 
@@ -82,4 +100,5 @@ if __name__ == "__main__":
 	b, c, d = extract_files('Anime')
 	tr, va, te = create_dataset(b)  # Happy
 	save_dataset(tr, va, te, 'Anime', 'Happy')
+	#delete_dataset('Anime', 'Happy')
 
