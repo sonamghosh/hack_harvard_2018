@@ -17,4 +17,5 @@ def submitString():
     text = request.form['text']
     #emotion = emotion_analyzer(text)
     #midi = music_boi(emotion)
+    print("Received: " + text)
     return text
