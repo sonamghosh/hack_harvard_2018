@@ -1,5 +1,4 @@
 import pretty_midi
-
 import numpy as np 
 import torch 
 import torch.nn as nn 
@@ -286,8 +285,8 @@ def get_triangular_lr(lr_low, lr_high, mini_batches):
 	iterations = mini_batches
 	lr_mid = lr_high/7 + lr_low
 	up = np.linspace(lr_low, lr_high, int(round(iterations*0.35)))
-	down = np.linspace(lr_mid, lr_low, int(round(iterations*0.35)))
-	floor = np.linspace(lr_mid, lor_low, int(round(iterations*0.30)))
+	down = np.linspace(lr_high, lr_low, int(round(iterations*0.35)))
+	floor = np.linspace(lr_mid, lr_low, int(round(iterations*0.30)))
 
 	return np.hstack([up, down[1:], floor])
 
@@ -331,7 +330,7 @@ def train_model(model, lrs_triangular, epochs_number=10, wd=0.0, best_val_loss=f
 		print("Training Loss: Epoch:", epoch_number, ':', current_trn_epoch)
 
 		current_val_loss = validate(model)
-		print("Validation Loss: Epoch: ", epochs_number, ":", current_val_loss)
+		print("Validation Loss: Epoch: ", epoch_number, ":", current_val_loss)
 
 		val_list.append(current_val_loss)
 
@@ -346,10 +345,10 @@ rnn = RNN(input_size=88, hidden_size=512, num_classes=88)
 lrs_triangular = get_triangular_lr(1e-3, 1e-2, len(trainset_loader))
 best_val_loss = train_model(rnn, lrs_triangular)
 
-rnn.load_state_dict('music_model_test1.pth')
+rnn.load_state_dict(torch.load('music_model_test1.pth'))
 
 # Validation
-def sample_from_piano_rnn(rnn, sample_length=0, temperature=1, starting_sequence=None):
+def sample_from_piano_rnn(rnn, sample_length=4, temperature=1, starting_sequence=None):
 	if starting_sequence is None:
 		current_sequence_input = torch.zeros(1, 1, 88)
 		current_sequence_input[0, 0, 40] = 1
