@@ -1,6 +1,7 @@
 import os
 import sys
 import random
+import pdb
 
 # This Script handles creating Training, Test, and Validation datasets
 
@@ -37,10 +38,29 @@ def extract_files(genre, num_files=50):
 
 	return happy_list, sad_list, neutral_list
 
-"""
+
 # Create training, testing, and validation datasets
-def create_dataset(data, train_split, test_split, valid_test)
-"""
+def create_dataset(data, train_split=0.8, test_split=0.2):
+	# Error Checker
+	if train_split + test_split != 1.:
+		raise ValueError('The split ratio must add up to 1.0')
+	# Shuffle filenames
+	random.shuffle(data)
+	# Split Train - Test 
+	split_1 = int(train_split * len(data))
+	split_2 = int((1 - test_split/2) * len(data))
+
+	train_set = data[:split_1]
+	val_set = data[split_1:split_2]
+	test_set = data[split_2:]
+
+	return train_set, val_set, test_set
+
+
+
+
+
+
 
 
 
@@ -49,3 +69,9 @@ def create_dataset(data, train_split, test_split, valid_test)
 if __name__ == "__main__":
 	a = fn('Anime', 'Happy')
 	b, c, d = extract_files('Anime', 50)
+	print(b)
+	tr, val, te = create_dataset(b)
+	print(len(tr))
+	print(len(val))
+	print(len(te))
+
