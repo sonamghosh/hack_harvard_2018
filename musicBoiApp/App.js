@@ -1,15 +1,16 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, KeyboardAvoidingView, StatusBar, ImageBackground } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Image, TouchableOpacity, KeyboardAvoidingView, StatusBar, ImageBackground, WebView, Linking } from 'react-native';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       text: "Paste text or type text here!",
-      test: "lol",
+      test: "",
     };
   }
 
+//Send POST request to the server and receive link to midi back
   submitText() {
     this.textInput.clear();
     let text = this.state.text;
@@ -29,6 +30,7 @@ export default class App extends React.Component {
 
   render() {
     let test = this.state.test;
+    console.log(test);
     return (
       <ImageBackground
         source={{uri: 'https://thumbs.gfycat.com/DisguisedTangibleArmyant-size_restricted.gif'}}
@@ -39,7 +41,11 @@ export default class App extends React.Component {
           <Image source={{uri: 'https://raw.githubusercontent.com/sonamghosh/hack_harvard_2018/FlaskServer/musicBoiLogo/musicBoiLogo5.png'}}
                 style={{width: 139, height: 85}}/>
           <Text style={styles.text}>Transform words into music</Text>
-          <Text style={styles.text}>{test}</Text>
+          <TouchableOpacity
+            onPress={ () => {Linking.openURL(this.state.test)}}
+          >
+            <Text style={styles.text}>{test}</Text>
+          </TouchableOpacity>
           <TextInput
             style={styles.input}
             placeholder="Paste text or type text here!"
