@@ -20,6 +20,12 @@ h3 {
 	font-size: 15px;
 }
 
+h4 {
+	color: white;
+	font-family: verdana;
+	font-size: 15px;
+}
+
 #stringInput {
 	width: 300px;
 	height: 100px;
