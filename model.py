@@ -76,7 +76,7 @@ def validate(model):
 	overall_sequence_length = 0.0
 
 	for batch in valset_loader:
-		if torch.cuda_is_available():
+		if torch.cuda.is_available():
 			post_processed_batch_tuple = post_processed_sequence_batch(batch)
 
 			input_sequences_batch, output_sequences_batch, sequences_lengths = post_processed_batch_tuple

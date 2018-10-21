@@ -9,11 +9,11 @@ import pdb
 # List files in directory
 def fn(genre, emotion):
 	# Error Checkers
-	if genre not in ['Anime', 'Classical', 'Pop', 'Rock', 'Video_Game']:
+	if genre not in ['Anime', 'Classical', 'Pop', 'Rock', 'Video_Game', 'Weeblyfe']:
 		raise ValueError('Invalid genre category')
 
 	if emotion not in ['Happy', 'Sad', 'Neutral']:
-		raise ValueError('Invalid emotion dataset')
+		raise ValueError('Invalid emotion category')
 
 	file_list = os.listdir('./data/'+genre+'/'+emotion+'/')
 	

@@ -19,7 +19,7 @@ def grab_data_path(genre, emotion):
 	# grabs the data path of the datasets for training, validation, and testing data
 
 	# Error Checker
-	if genre not in ['Anime', 'Classical', 'Pop', 'Rock', 'Video_Game']:
+	if genre not in ['Anime', 'Classical', 'Pop', 'Rock', 'Video_Game', 'Weeblyfe']:
 		raise ValueError('Invalid genre category')
 	if emotion not in ['Happy', 'Sad', 'Neutral']:
 		raise ValueError('Invalid emotion category')
@@ -27,8 +27,8 @@ def grab_data_path(genre, emotion):
 	path = './data/'
 
 	train_path = path + genre + '/' + emotion.lower() + '_train/'
-	test_path = path + genre + '/' + emotion.lower() + '_/test/'
-	val_path = path + genre + '/' + emotion.lower() + '_/val/'
+	test_path = path + genre + '/' + emotion.lower() + '_test/'
+	val_path = path + genre + '/' + emotion.lower() + '_val/'
 
 	return train_path, test_path, val_path
 
@@ -53,7 +53,7 @@ def pad_piano_roll(piano_roll, max_length=132333, pad_value=0):
 	padded_piano_roll = np.zeros((88, max_length))
 	padded_piano_roll[:] = pad_value
 
-	padded_piano_roll[:, -original_piano_roll_length:] = piano_roll
+	padded_piano_roll[:, :original_piano_roll_length] = piano_roll
 
 	return padded_piano_roll
 
@@ -89,7 +89,6 @@ class NotesGenerationDataset(data.Dataset):
 
 	def __len__(self):
 		return len(self.midi_full_filenames)
-
 
 	def __getitem__(self, index):
 
@@ -195,10 +194,10 @@ if __name__ == "__main__":
 	trainset = NotesGenerationDataset(train_path)
 	trainset_loader = torch.utils.data.DataLoader(trainset, batch_size=20,
 		                                          shuffle=True, num_workers=0, drop_last=True)
-	"""
+	
 	print(len(trainset), len(trainset_loader))
 	X = next(iter(trainset_loader))
 	print(X[0].shape)
 	print(X[1].shape)
 	print(torch.sum(X[0]))
-	"""
+	

@@ -47,7 +47,7 @@ def lrfinder(start, end, model, trainset_loader, epochs=10):
 
 			input_sequences_batch, output_sequences_batch, sequences_lengths = post_processed_batch_tuple
 
-			if torch.cuda_is_available():
+			if torch.cuda.is_available():
 				output_sequences_batch_var = Variable(output_sequences_batch.contiguous().view(-1).cuda())
 				input_sequences_batch_var = Variable(input_sequences_batch.cuda())
 
@@ -94,7 +94,10 @@ def get_triangular_lr(lr_low, lr_high, mini_batches, epochs_number=1):
 	return np.hstack([up, down[1:], floor])
 
 
-def train_model(model, lrs_triangular, epochs_number=10, wd=0.0, best_val_loss=float("inf")):
+criterion = nn.CrossEntropyLoss()
+criterion_val = nn.CrossEntropyLoss(size_average=False)
+
+def train_model(model, trainset_loader, lrs_triangular, epochs_number=10, wd=0.0, best_val_loss=float("inf")):
 	loss_list = []
 	val_list = []
 	parameters = filter(lambda p: p.requires_grad, model.parameters())
@@ -109,7 +112,7 @@ def train_model(model, lrs_triangular, epochs_number=10, wd=0.0, best_val_loss=f
 				optimizer.param_groups[0]['lr'] = lrs_triangular[ctr]
 			except IndexError: pass
 			ctr+=1
-			if torch.cuda_is_available():
+			if torch.cuda.is_available():
 				post_processed_batch_tuple = post_process_sequence_batch(batch)
 				input_sequences_batch, output_sequences_batch, sequences_lengths = post_processed_batch_tuple
 				output_sequences_batch_var = Variable(output_sequences_batch.contiguous().view(-1).cuda())
@@ -160,4 +163,3 @@ def train_model(model, lrs_triangular, epochs_number=10, wd=0.0, best_val_loss=f
 			best_val_loss = current_val_loss
 	return best_val_loss
 
-	
