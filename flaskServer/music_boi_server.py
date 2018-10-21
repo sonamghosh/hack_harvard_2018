@@ -5,7 +5,7 @@ import dropbox
 import json
 import config
 
-#from text_emotion_analyzer.py import emotion_analyzer
+from text_emotion_analyzer import emotion_analyzer
 #from music_boi.py import music_boi
 
 #Set app for Flask
@@ -24,13 +24,13 @@ def hello_world():
 @app.route('/submitString', methods=['POST'])
 def submitString():
     text = request.form['text']
-    #emotion = emotion_analyzer(text)
+    emotion = emotion_analyzer(text)
     #midi = music_boi(emotion)
     print("Received: " + text)
     filename = '/Steins;Gate-Believe-Me.mid'
     f = open('./Steins;Gate-Believe-Me.mid', 'rb')
     dbx.files_upload(bytes(f.read()), filename)
     link = dbx.sharing_create_shared_link(path=filename, short_url=True)
-    cool = {"text": link.url}
+    cool = {"text": emotion, "link": link.url}
     cool = json.dumps(cool)
     return cool

@@ -6,6 +6,7 @@ export default class App extends React.Component {
     super(props);
     this.state = {
       text: "Paste text or type text here!",
+      link: "",
       test: "",
     };
   }
@@ -23,13 +24,14 @@ export default class App extends React.Component {
     })
       .then(res => res.json())
       .then((resp) => {
-        this.setState({test: resp.text});
+        this.setState({test: resp.text, link: resp.link});
       })
   }
 
 
   render() {
     let test = this.state.test;
+    let link = this.state.link;
     console.log(test);
     return (
       <ImageBackground
@@ -42,9 +44,10 @@ export default class App extends React.Component {
                 style={{width: 139, height: 85}}/>
           <Text style={styles.text}>Transform words into music</Text>
           <TouchableOpacity
-            onPress={ () => {Linking.openURL(this.state.test)}}
+            onPress={ () => {Linking.openURL(this.state.link)}}
           >
-            <Text style={styles.text}>{test}</Text>
+            <Text style={styles.text}>Tone: {test}</Text>
+            <Text style={styles.text}>Midi: {link} </Text>
           </TouchableOpacity>
           <TextInput
             style={styles.input}
@@ -76,6 +79,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#87ceeb',
+    margin: 5,
   },
   input: {
     width: "80%",
