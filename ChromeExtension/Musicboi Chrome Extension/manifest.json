@@ -1,0 +1,15 @@
+{
+  "name": "Musicboi Extension",
+  "description" : "Extension for Musicboi, a tool that genereates a unique emotionally-related music piece from any text.",
+  "version": "1.0",
+  "manifest_version": 2,
+  "browser_action": {
+    "default_popup": "popup.html",
+    "default_icon": "musicboi_logo.png",
+    "default_title": "Use text to generate music!"
+  },
+
+  "permissions": [
+    "storage"
+  ]
+}

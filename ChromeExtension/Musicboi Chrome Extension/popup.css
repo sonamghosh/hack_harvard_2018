@@ -1,0 +1,37 @@
+body {
+	background-color: #03A9F4;
+	padding: 10px 5px 10px;
+	width: 300px;
+}
+
+h1 {
+    text-align: center;
+}
+
+h2 {
+	color: white;
+	font-family: verdana;
+	font-size: 15px;
+}
+
+h3 {
+	color: white;
+	font-family: verdana;
+	font-size: 15px;
+}
+
+#stringInput {
+	width: 300px;
+	height: 100px;
+	border: 2px solid grey;
+    border-radius: 5px;
+    padding: 10px 5px 10px;
+}
+
+#sendString {
+	width: 300px;
+	text-align: center;
+	border: 2px solid grey;
+    border-radius: 5px;
+    padding: 10px 5px 10px;
+}
