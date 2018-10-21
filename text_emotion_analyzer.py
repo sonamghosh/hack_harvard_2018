@@ -4,7 +4,6 @@ from watson_developer_cloud import ToneAnalyzerV3
 from watson_developer_cloud import WatsonApiException
 
 
-
 def emotion_analyzer(text):
 	# Call Tone Analyzer API from IBM Watson
 	tone_analyzer = ToneAnalyzerV3(
@@ -16,7 +15,14 @@ def emotion_analyzer(text):
 	# Print Result
 	tone_analysis = tone_analyzer.tone({'text': text}, 'application/json').get_result()
 	print('Input text = ', text, '\n')
-	print(json.dumps(tone_analysis, indent=2))
+	#print(json.dumps(tone_analysis, indent=2))
+	#json_file = json.dumps(tone_analysis, indent=2)
+	tones = tone_analysis['document_tone']['tones']
+	items = [x['score'] for x in tones]
+	max_score = max(items)
+	max_emotion = items.index(max_score)
+
+	return tones[max_emotion]["tone_name"]
 
 if __name__ == "__main__":
 	text = "Without you, I feel broke\
@@ -27,4 +33,5 @@ if __name__ == "__main__":
 		Without you, I\'m just a sad song\
 		I\'m just a sad song" 
 
-	emotion_analyzer(text)
+	em = emotion_analyzer(text)
+	print(em)
